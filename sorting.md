@@ -62,6 +62,13 @@ const selectionSort = (arr) => {
 - 一部分是已经排序的
 - 一部分是未排序的，
 
+### 时间复杂度
+- 最好情况：O(n)
+- 最坏情况：O(n^2)
+
+### 空间复杂度
+- O(1)
+
 遍历未排序的部分，将元素插入到已经排序的部分，直到数组完全有序。
 ```js
 const insertionSort = (arr) => {
@@ -77,5 +84,40 @@ const insertionSort = (arr) => {
 }
 ```
 
+## 快速排序
+快速排序的核心是分治法（divide and conqueor）和递归，将数组分为两部分，一部分是小于基准值的，一部分是大于基准值的，然后再对这两部分进行快速排序，直到数组完全有序。
+
+基准值的选择有很多，一般选择中间的元素，也可以选择第一个元素或者最后一个元素。
+
+### 时间复杂度
+- 最好情况：O(nlogn)
+- 最坏情况：O(n^2)
+
+最坏情况是每次选择的基准值都是最大或者最小的元素，这样每次只能将数组分为一个元素和剩下的元素，子数组只会比之前的数组少一个元素， 这样就需要n次递归，所以时间复杂度为O(n^2)。
+
+### 空间复杂度
+- O(logn)
+
+```js
+function quicksort(array) {
+ if(array.length <= 1){
+     return array
+ }
+ const pivot = array[Math.floor(array.length/2)]
+ let less = []
+ let greater = []
+ 
+ for(let i = 0; i < array.length; i++){
+     if(array[i] < pivot){
+         less.push(array[i])
+     }else if(array[i] > pivot){
+         greater.push(array[i])
+     }
+ }
+ 
+ return [...quicksort(less), pivot, ...quicksort(greater)]
+}
+
+```
 ## Ref
 - https://www.runoob.com/w3cnote/ten-sorting-algorithm.html
