@@ -119,5 +119,57 @@ function quicksort(array) {
 }
 
 ```
+
+## 归并排序
+归并排序的核心是分治法（divide and conqueor）和递归，
+- 将数组分为两部分
+- 然后再对这两部分进行归并排序，直到两个数组完全有序。
+- 然后再将两个有序的数组合并为一个有序的数组。
+
+### 时间复杂度
+- 最好情况：O(nlogn)
+- 最坏情况：O(nlogn)
+  
+### 空间复杂度
+- O(n)
+
+```js
+function mergeSort(arr) {
+    var len = arr.length;
+    if(len < 2) {
+        return arr;
+    }
+    const mid = Math.floor(arr.length / 2)
+    let left = arr.slice(0, mid)
+    let right = arr.slice(mid)
+    return merge(mergeSort(left), mergeSort(right));
+}
+
+function merge(left, right){
+   let result = []
+   if(left.length === 0 || right.length === 0){
+       return [...left, ...right]
+   }
+   while(left.length && right.length){
+       if(left[0] < right[0]){
+           result.push(left.shift())
+       }else{
+           result.push(right.shift())
+       }
+   }
+   while(left.length){
+        result.push(left.shift())
+    }
+   
+    while(right.length){
+        result.push(right.shift())
+    }
+   return result
+}
+```
+
+
+
+
 ## Ref
 - https://www.runoob.com/w3cnote/ten-sorting-algorithm.html
